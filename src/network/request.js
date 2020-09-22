@@ -6,5 +6,13 @@ export function request(config) {
 		timeout: 1000
 	});
 
+	instance.interceptors.request.use(config=>{
+		// 需要授权的API，必须在请求头中使用Authorization字段
+		// 提供token令牌
+		config.headers.Authorization = window.sessionStorage.getItem('token')
+		
+		return config
+	})
+
 	return instance(config);
 }
